@@ -1,0 +1,14 @@
+SELECT
+	Month,
+	[Total requests],
+	Download,
+	[%Dnld],
+	SUM([Total requests]) OVER(ORDER BY Month
+		ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW) AS Tr_running_total,
+	SUM([Download]) OVER(ORDER BY Month
+		ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW) AS D_running_total,
+	AVG([Total requests]) OVER(ORDER BY Month
+		ROWS BETWEEN 6 PRECEDING AND CURRENT ROW) AS Tr_6mon_avg,
+	AVG([Download]) OVER(ORDER BY Month
+		ROWS BETWEEN 6 PRECEDING AND CURRENT ROW) AS D_6mon_avg
+FROM breakdown_by_month;
